@@ -1,0 +1,679 @@
+{
+	"info": {
+		"_postman_id": "e20dfa07-ecf7-43c7-a9d6-c23c26b69a84",
+		"name": "JUICE_SHOP_API_TESTING",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41997193"
+	},
+	"item": [
+		{
+			"name": "User Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"admin123@gmail.com\",\r\n\"password\":\"user123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl_js}}rest/user/login",
+					"host": [
+						"{{BaseUrl_js}}rest"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Product List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MzMsInVzZXJuYW1lIjoiIiwiZW1haWwiOiJhZG1pbjEyM0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IjZhZDE0YmE5OTg2ZTM2MTU0MjNkZmNhMjU2ZDA0ZTNmIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6InVuZGVmaW5lZCIsInByb2ZpbGVJbWFnZSI6Ii9hc3NldHMvcHVibGljL2ltYWdlcy91cGxvYWRzL2RlZmF1bHQuc3ZnIiwidG90cFNlY3JldCI6IiIsImlzQWN0aXZlIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE4OjA1LjA1NCArMDA6MDAiLCJ1cGRhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE5OjE0LjY4MCArMDA6MDAiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE3NDAyMzc4NzR9.o8RNMGjRe3Tg9CN9787sNwLKWCIaYTt6z1I4WoXYzyw9fwrKncHq7jgk1VOppn81sX9_Kcc76DByU8w-JbQ_tt6tNw3h2zj6-fQWnCDC9-JyYtXcd1C_A7kvnct1YiueystObEGMc-XosNXp-o6m_TLFEnVhVTaPahVmsRXxTcQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl_js}}rest/basket/6",
+					"host": [
+						"{{BaseUrl_js}}rest"
+					],
+					"path": [
+						"basket",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address Create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"console.log(\"Response:\", jsonData);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"// Check if 'message' exists before asserting\r",
+							"pm.test(\"Response contains required fields\", function () {\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData).to.have.property(\"status\", \"success\");\r",
+							"\r",
+							"    if (jsonData.hasOwnProperty(\"message\")) {\r",
+							"        pm.expect(jsonData).to.have.property(\"message\");\r",
+							"    } else {\r",
+							"        console.warn(\"⚠️ Warning: 'message' property is missing from the response\");\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains submitted address\", function () {\r",
+							"    pm.expect(jsonData.data).to.have.property(\"fullName\", \"Liza Akter\");\r",
+							"    pm.expect(jsonData.data).to.have.property(\"city\", \"Dhaka, Bangladesh\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MzMsInVzZXJuYW1lIjoiIiwiZW1haWwiOiJhZG1pbjEyM0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IjZhZDE0YmE5OTg2ZTM2MTU0MjNkZmNhMjU2ZDA0ZTNmIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6InVuZGVmaW5lZCIsInByb2ZpbGVJbWFnZSI6Ii9hc3NldHMvcHVibGljL2ltYWdlcy91cGxvYWRzL2RlZmF1bHQuc3ZnIiwidG90cFNlY3JldCI6IiIsImlzQWN0aXZlIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE4OjA1LjA1NCArMDA6MDAiLCJ1cGRhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE5OjE0LjY4MCArMDA6MDAiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE3NDAyMzc4NzR9.o8RNMGjRe3Tg9CN9787sNwLKWCIaYTt6z1I4WoXYzyw9fwrKncHq7jgk1VOppn81sX9_Kcc76DByU8w-JbQ_tt6tNw3h2zj6-fQWnCDC9-JyYtXcd1C_A7kvnct1YiueystObEGMc-XosNXp-o6m_TLFEnVhVTaPahVmsRXxTcQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"country\": \"Bangladesh\",\r\n  \"fullName\": \"Liza Akter\",\r\n  \"mobileNum\": \"1713005933\",\r\n  \"zipCode\": \"Dhaka12\",\r\n  \"streetAddress\": \"Uttara Azampur\",\r\n  \"city\": \"Dhaka, Bangladesh\",\r\n  \"state\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl_js}}api/Addresss/",
+					"host": [
+						"{{BaseUrl_js}}api"
+					],
+					"path": [
+						"Addresss",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Address Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains required fields\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    \r",
+							"    // Check if 'status' field exists and is 'success'\r",
+							"    pm.expect(jsonData).to.have.property(\"status\", \"success\");\r",
+							"\r",
+							"    // Ensure 'data' array exists and is not empty\r",
+							"    pm.expect(jsonData).to.have.property(\"data\").that.is.an(\"array\").that.is.not.empty;\r",
+							"\r",
+							"    // Validate first object in data array (assuming there's at least one)\r",
+							"    let address = jsonData.data[0];\r",
+							"    \r",
+							"    pm.expect(address).to.have.property(\"id\");\r",
+							"    pm.expect(address).to.have.property(\"UserId\");\r",
+							"    pm.expect(address).to.have.property(\"fullName\");\r",
+							"    pm.expect(address).to.have.property(\"mobileNum\");\r",
+							"    pm.expect(address).to.have.property(\"zipCode\");\r",
+							"    pm.expect(address).to.have.property(\"streetAddress\");\r",
+							"    pm.expect(address).to.have.property(\"city\");\r",
+							"    pm.expect(address).to.have.property(\"state\");\r",
+							"    pm.expect(address).to.have.property(\"country\");\r",
+							"    pm.expect(address).to.have.property(\"createdAt\");\r",
+							"    pm.expect(address).to.have.property(\"updatedAt\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains submitted address\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    let addressList = jsonData.data;\r",
+							"\r",
+							"    let found = addressList.some(address => address.fullName === \"Liza Akter\" && address.mobileNum === 1713005933);\r",
+							"    pm.expect(found).to.be.true;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MzMsInVzZXJuYW1lIjoiIiwiZW1haWwiOiJhZG1pbjEyM0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IjZhZDE0YmE5OTg2ZTM2MTU0MjNkZmNhMjU2ZDA0ZTNmIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6InVuZGVmaW5lZCIsInByb2ZpbGVJbWFnZSI6Ii9hc3NldHMvcHVibGljL2ltYWdlcy91cGxvYWRzL2RlZmF1bHQuc3ZnIiwidG90cFNlY3JldCI6IiIsImlzQWN0aXZlIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE4OjA1LjA1NCArMDA6MDAiLCJ1cGRhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE5OjE0LjY4MCArMDA6MDAiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE3NDAyMzc4NzR9.o8RNMGjRe3Tg9CN9787sNwLKWCIaYTt6z1I4WoXYzyw9fwrKncHq7jgk1VOppn81sX9_Kcc76DByU8w-JbQ_tt6tNw3h2zj6-fQWnCDC9-JyYtXcd1C_A7kvnct1YiueystObEGMc-XosNXp-o6m_TLFEnVhVTaPahVmsRXxTcQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl_js}}api/Addresss",
+					"host": [
+						"{{BaseUrl_js}}api"
+					],
+					"path": [
+						"Addresss"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Wallet Balance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MzMsInVzZXJuYW1lIjoiIiwiZW1haWwiOiJhZG1pbjEyM0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IjZhZDE0YmE5OTg2ZTM2MTU0MjNkZmNhMjU2ZDA0ZTNmIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6InVuZGVmaW5lZCIsInByb2ZpbGVJbWFnZSI6Ii9hc3NldHMvcHVibGljL2ltYWdlcy91cGxvYWRzL2RlZmF1bHQuc3ZnIiwidG90cFNlY3JldCI6IiIsImlzQWN0aXZlIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE4OjA1LjA1NCArMDA6MDAiLCJ1cGRhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE5OjE0LjY4MCArMDA6MDAiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE3NDAyMzc4NzR9.o8RNMGjRe3Tg9CN9787sNwLKWCIaYTt6z1I4WoXYzyw9fwrKncHq7jgk1VOppn81sX9_Kcc76DByU8w-JbQ_tt6tNw3h2zj6-fQWnCDC9-JyYtXcd1C_A7kvnct1YiueystObEGMc-XosNXp-o6m_TLFEnVhVTaPahVmsRXxTcQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl_js}}rest/wallet/balance",
+					"host": [
+						"{{BaseUrl_js}}rest"
+					],
+					"path": [
+						"wallet",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Delivery Info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MzMsInVzZXJuYW1lIjoiIiwiZW1haWwiOiJhZG1pbjEyM0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IjZhZDE0YmE5OTg2ZTM2MTU0MjNkZmNhMjU2ZDA0ZTNmIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6InVuZGVmaW5lZCIsInByb2ZpbGVJbWFnZSI6Ii9hc3NldHMvcHVibGljL2ltYWdlcy91cGxvYWRzL2RlZmF1bHQuc3ZnIiwidG90cFNlY3JldCI6IiIsImlzQWN0aXZlIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE4OjA1LjA1NCArMDA6MDAiLCJ1cGRhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE5OjE0LjY4MCArMDA6MDAiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE3NDAyMzc4NzR9.o8RNMGjRe3Tg9CN9787sNwLKWCIaYTt6z1I4WoXYzyw9fwrKncHq7jgk1VOppn81sX9_Kcc76DByU8w-JbQ_tt6tNw3h2zj6-fQWnCDC9-JyYtXcd1C_A7kvnct1YiueystObEGMc-XosNXp-o6m_TLFEnVhVTaPahVmsRXxTcQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl_js}}api/Deliverys/1",
+					"host": [
+						"{{BaseUrl_js}}api"
+					],
+					"path": [
+						"Deliverys",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Saved Cards",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MzMsInVzZXJuYW1lIjoiIiwiZW1haWwiOiJhZG1pbjEyM0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IjZhZDE0YmE5OTg2ZTM2MTU0MjNkZmNhMjU2ZDA0ZTNmIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6InVuZGVmaW5lZCIsInByb2ZpbGVJbWFnZSI6Ii9hc3NldHMvcHVibGljL2ltYWdlcy91cGxvYWRzL2RlZmF1bHQuc3ZnIiwidG90cFNlY3JldCI6IiIsImlzQWN0aXZlIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE4OjA1LjA1NCArMDA6MDAiLCJ1cGRhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE5OjE0LjY4MCArMDA6MDAiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE3NDAyMzc4NzR9.o8RNMGjRe3Tg9CN9787sNwLKWCIaYTt6z1I4WoXYzyw9fwrKncHq7jgk1VOppn81sX9_Kcc76DByU8w-JbQ_tt6tNw3h2zj6-fQWnCDC9-JyYtXcd1C_A7kvnct1YiueystObEGMc-XosNXp-o6m_TLFEnVhVTaPahVmsRXxTcQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl_js}}api/Cards",
+					"host": [
+						"{{BaseUrl_js}}api"
+					],
+					"path": [
+						"Cards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checkout Order",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"basketId\", 6); // Setting basket ID dynamically\r",
+							"pm.request.headers.add({ key: \"Authorization\", value: \"Bearer \" + pm.environment.get(\"authToken\") });\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains order confirmation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"orderConfirmation\");\r",
+							"    pm.expect(jsonData.orderConfirmation).to.be.a(\"string\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MzMsInVzZXJuYW1lIjoiIiwiZW1haWwiOiJhZG1pbjEyM0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IjZhZDE0YmE5OTg2ZTM2MTU0MjNkZmNhMjU2ZDA0ZTNmIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6InVuZGVmaW5lZCIsInByb2ZpbGVJbWFnZSI6Ii9hc3NldHMvcHVibGljL2ltYWdlcy91cGxvYWRzL2RlZmF1bHQuc3ZnIiwidG90cFNlY3JldCI6IiIsImlzQWN0aXZlIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE4OjA1LjA1NCArMDA6MDAiLCJ1cGRhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE5OjE0LjY4MCArMDA6MDAiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE3NDAyMzc4NzR9.o8RNMGjRe3Tg9CN9787sNwLKWCIaYTt6z1I4WoXYzyw9fwrKncHq7jgk1VOppn81sX9_Kcc76DByU8w-JbQ_tt6tNw3h2zj6-fQWnCDC9-JyYtXcd1C_A7kvnct1YiueystObEGMc-XosNXp-o6m_TLFEnVhVTaPahVmsRXxTcQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl_js}}rest/basket/6/checkout",
+					"host": [
+						"{{BaseUrl_js}}rest"
+					],
+					"path": [
+						"basket",
+						"6",
+						"checkout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Basket Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MzMsInVzZXJuYW1lIjoiIiwiZW1haWwiOiJhZG1pbjEyM0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IjZhZDE0YmE5OTg2ZTM2MTU0MjNkZmNhMjU2ZDA0ZTNmIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6InVuZGVmaW5lZCIsInByb2ZpbGVJbWFnZSI6Ii9hc3NldHMvcHVibGljL2ltYWdlcy91cGxvYWRzL2RlZmF1bHQuc3ZnIiwidG90cFNlY3JldCI6IiIsImlzQWN0aXZlIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE4OjA1LjA1NCArMDA6MDAiLCJ1cGRhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE5OjE0LjY4MCArMDA6MDAiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE3NDAyMzc4NzR9.o8RNMGjRe3Tg9CN9787sNwLKWCIaYTt6z1I4WoXYzyw9fwrKncHq7jgk1VOppn81sX9_Kcc76DByU8w-JbQ_tt6tNw3h2zj6-fQWnCDC9-JyYtXcd1C_A7kvnct1YiueystObEGMc-XosNXp-o6m_TLFEnVhVTaPahVmsRXxTcQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl_js}}rest/basket/6",
+					"host": [
+						"{{BaseUrl_js}}rest"
+					],
+					"path": [
+						"basket",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updated Product Review",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should contain success status\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MzMsInVzZXJuYW1lIjoiIiwiZW1haWwiOiJhZG1pbjEyM0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IjZhZDE0YmE5OTg2ZTM2MTU0MjNkZmNhMjU2ZDA0ZTNmIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6InVuZGVmaW5lZCIsInByb2ZpbGVJbWFnZSI6Ii9hc3NldHMvcHVibGljL2ltYWdlcy91cGxvYWRzL2RlZmF1bHQuc3ZnIiwidG90cFNlY3JldCI6IiIsImlzQWN0aXZlIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE4OjA1LjA1NCArMDA6MDAiLCJ1cGRhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE5OjE0LjY4MCArMDA6MDAiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE3NDAyMzc4NzR9.o8RNMGjRe3Tg9CN9787sNwLKWCIaYTt6z1I4WoXYzyw9fwrKncHq7jgk1VOppn81sX9_Kcc76DByU8w-JbQ_tt6tNw3h2zj6-fQWnCDC9-JyYtXcd1C_A7kvnct1YiueystObEGMc-XosNXp-o6m_TLFEnVhVTaPahVmsRXxTcQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"message\":\"100% pure juice made from the flesh of fresh fruit or from whole fruit\",\"author\":\"admin123@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl_js}}rest/products/29/reviews",
+					"host": [
+						"{{BaseUrl_js}}rest"
+					],
+					"path": [
+						"products",
+						"29",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product Reviews",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MzMsInVzZXJuYW1lIjoiIiwiZW1haWwiOiJhZG1pbjEyM0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IjZhZDE0YmE5OTg2ZTM2MTU0MjNkZmNhMjU2ZDA0ZTNmIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6InVuZGVmaW5lZCIsInByb2ZpbGVJbWFnZSI6Ii9hc3NldHMvcHVibGljL2ltYWdlcy91cGxvYWRzL2RlZmF1bHQuc3ZnIiwidG90cFNlY3JldCI6IiIsImlzQWN0aXZlIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE4OjA1LjA1NCArMDA6MDAiLCJ1cGRhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE5OjE0LjY4MCArMDA6MDAiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE3NDAyMzc4NzR9.o8RNMGjRe3Tg9CN9787sNwLKWCIaYTt6z1I4WoXYzyw9fwrKncHq7jgk1VOppn81sX9_Kcc76DByU8w-JbQ_tt6tNw3h2zj6-fQWnCDC9-JyYtXcd1C_A7kvnct1YiueystObEGMc-XosNXp-o6m_TLFEnVhVTaPahVmsRXxTcQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl_js}}rest/products/29/reviews",
+					"host": [
+						"{{BaseUrl_js}}rest"
+					],
+					"path": [
+						"products",
+						"29",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Shopping Cart Info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains user ID\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.UserId).to.exist;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MzMsInVzZXJuYW1lIjoiIiwiZW1haWwiOiJhZG1pbjEyM0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IjZhZDE0YmE5OTg2ZTM2MTU0MjNkZmNhMjU2ZDA0ZTNmIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6InVuZGVmaW5lZCIsInByb2ZpbGVJbWFnZSI6Ii9hc3NldHMvcHVibGljL2ltYWdlcy91cGxvYWRzL2RlZmF1bHQuc3ZnIiwidG90cFNlY3JldCI6IiIsImlzQWN0aXZlIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE4OjA1LjA1NCArMDA6MDAiLCJ1cGRhdGVkQXQiOiIyMDI1LTAyLTIyIDE1OjE5OjE0LjY4MCArMDA6MDAiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE3NDAyMzc4NzR9.o8RNMGjRe3Tg9CN9787sNwLKWCIaYTt6z1I4WoXYzyw9fwrKncHq7jgk1VOppn81sX9_Kcc76DByU8w-JbQ_tt6tNw3h2zj6-fQWnCDC9-JyYtXcd1C_A7kvnct1YiueystObEGMc-XosNXp-o6m_TLFEnVhVTaPahVmsRXxTcQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl_js}}rest/basket/6",
+					"host": [
+						"{{BaseUrl_js}}rest"
+					],
+					"path": [
+						"basket",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{UserEmail}}\",\r\n    \"password\": \"{{UserPassword}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://juice-shop.herokuapp.com/rest/user/login",
+					"protocol": "https",
+					"host": [
+						"juice-shop",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"rest",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseUrl_js",
+			"value": "https://juice-shop.herokuapp.com/",
+			"type": "string"
+		}
+	]
+}
